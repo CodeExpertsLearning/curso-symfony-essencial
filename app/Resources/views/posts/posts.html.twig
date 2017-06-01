@@ -2,7 +2,9 @@
 
 {% block body %}
     <div class="container">
-        <a href="/posts/create" class="btn btn-primary pull-right">Cria Post</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="/posts/create" class="btn btn-primary pull-right">Cria Post</a>
+        {% endif %}
         <div class="col-md-12">
             {% include 'includes/messages.html.twig' %}
         </div>
@@ -10,7 +12,9 @@
             {% for p in posts %}
                 <div class="posts">
                     <h2><a href="/posts/edit/{{ p.getId() }}">{{ p.getTitle() }}</a></h2>
-                    <small><a href="/posts/remove/{{ p.getId() }}">DELETAR</a></small> <br>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <small><a href="/posts/remove/{{ p.getId() }}">DELETAR</a></small> <br>
+                    {% endif %}
                     <small>Criado em {{ p.createdAt()|date("d/m/Y H:i:s") }}</small>
                     <p>
                         {{ p.getContent() }}

@@ -3,6 +3,7 @@
 namespace CodeExperts\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="CodeExperts\AdminBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -56,6 +57,12 @@ class User
      */
     private $updatedAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="string", length=255)
+     */
+    private $roles;
 
     /**
      * Get id
@@ -178,6 +185,23 @@ class User
     }
 
     /**
+     * @return string
+     */
+    public function getRoles()
+    {
+        return ! $this->roles ? [] : explode(',', $this->roles);
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+
+    /**
      * Get updatedAt
      *
      * @return \DateTime
@@ -185,6 +209,20 @@ class User
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
 
