@@ -1,11 +1,12 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/service_container.html
+imports:
+    - {resource: legacy_aliases.yml}
+
 parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-     bold:
-         class: AppBundle\Service\Bold
+     _defaults:
+         autowire: true
+         autoconfigure: true
+
+     AppBundle\Service\Bold: ~

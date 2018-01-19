@@ -1,0 +1,2 @@
+services:
+  bold: '@AppBundle\Service\Bold'
