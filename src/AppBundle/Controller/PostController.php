@@ -97,7 +97,7 @@ class PostController extends Controller
         $this->getDoctrine()->getEntityManager()->flush();
 
 
-        $this->addFlash("warning", "Post editado com sucesso!");
+        $this->addFlash("warning", "Post deletado com sucesso!");
 
         return $this->redirect('/posts');
     }
